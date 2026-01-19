@@ -12,7 +12,6 @@ import java.time.Instant
 
 @RestController
 @RequestMapping("/api/tracking")
-@CrossOrigin(origins = ["*"]) // Allow all origins for development
 class TrackingController(
     private val service: TrackingSessionService
 ) {
