@@ -1,0 +1,3 @@
+master-backend.el-shaarawi.com {
+    reverse_proxy master-prj-backend:8080
+}

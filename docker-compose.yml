@@ -19,11 +19,26 @@ services:
   master-prj-backend:
     build: .
     container_name: master-prj-backend
-    ports:
-      - "8080:8080"
+    expose:
+      - "8080"
     depends_on:
       postgres:
         condition: service_healthy
 
+  caddy:
+    image: caddy:2-alpine
+    container_name: masterprj-caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - master-prj-backend
+
 volumes:
   postgres_data:
+  caddy_data:
+  caddy_config:
