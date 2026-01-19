@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: masterprj-postgres
+    environment:
+      POSTGRES_DB: masterprj
+      POSTGRES_USER: masterprj
+      POSTGRES_PASSWORD: masterprj
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U masterprj -d masterprj"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  master-prj-backend:
+    build: .
+    container_name: master-prj-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
