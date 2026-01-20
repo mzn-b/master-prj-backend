@@ -48,8 +48,8 @@ data class TrackingDataDTO(
 data class PerformanceMetricsDTO(
     val fps: Double,
     val avgFps: Double,
-    val minFps: Double,
-    val maxFps: Double,
+    val minFps: Double? = null,
+    val maxFps: Double? = null,
     val inferenceTimeMs: Double,
     val avgInferenceTimeMs: Double,
     val frameProcessingTimeMs: Double,

@@ -47,11 +47,9 @@ class TrackingSession(
     @Column(nullable = false)
     val avgFps: Double,
 
-    @Column(nullable = false)
-    val minFps: Double,
+    val minFps: Double? = null,
 
-    @Column(nullable = false)
-    val maxFps: Double,
+    val maxFps: Double? = null,
 
     @Column(nullable = false)
     val inferenceTimeMs: Double,
