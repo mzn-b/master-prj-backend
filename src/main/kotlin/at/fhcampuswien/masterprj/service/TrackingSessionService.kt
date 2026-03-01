@@ -35,17 +35,47 @@ class TrackingSessionService(
             avgInferenceTimeMs = request.metrics.avgInferenceTimeMs,
             frameProcessingTimeMs = request.metrics.frameProcessingTimeMs,
             avgFrameProcessingTimeMs = request.metrics.avgFrameProcessingTimeMs,
+            // Memory
             memoryUsageMB = request.metrics.memoryUsageMB,
+            totalMemoryMB = request.metrics.totalMemoryMB,
+            availableMemoryMB = request.metrics.availableMemoryMB,
+            heapLimitMB = request.metrics.heapLimitMB,
+            // CPU
             cpuUsagePercent = request.metrics.cpuUsagePercent,
+            cpuCores = request.metrics.cpuCores,
+            threadCount = request.metrics.threadCount,
+            // GPU
             gpuUsagePercent = request.metrics.gpuUsagePercent,
+            gpuVendor = request.metrics.gpuVendor,
+            gpuRenderer = request.metrics.gpuRenderer,
+            // Thermal
+            thermalState = request.metrics.thermalState,
+            // Power
             batteryLevel = request.metrics.batteryLevel,
             batteryCharging = request.metrics.batteryCharging,
+            // Network
+            networkType = request.metrics.networkType,
+            networkDownlinkMbps = request.metrics.networkDownlinkMbps,
+            networkRttMs = request.metrics.networkRttMs,
+            // Detection metrics
+            facesDetectedAvg = request.metrics.facesDetectedAvg,
+            handsDetectedAvg = request.metrics.handsDetectedAvg,
+            detectionRate = request.metrics.detectionRate,
+            // Model metrics
+            modelLoadTimeMs = request.metrics.modelLoadTimeMs,
+            // Session metrics
             frameCount = request.metrics.frameCount,
             droppedFrames = request.metrics.droppedFrames,
             sessionDurationMs = request.metrics.sessionDurationMs,
             warmupComplete = request.metrics.warmupComplete,
             trackingConfidence = request.metrics.trackingConfidence,
-            trackingLostCount = request.metrics.trackingLostCount
+            trackingLostCount = request.metrics.trackingLostCount,
+            // Enhanced metrics
+            peakMemoryUsageMB = request.metrics.peakMemoryUsageMB,
+            gpuDelegateActive = request.metrics.gpuDelegateActive,
+            trackingRecoveryTimeMs = request.metrics.trackingRecoveryTimeMs,
+            consecutiveTrackingLossMax = request.metrics.consecutiveTrackingLossMax,
+            errorCount = request.metrics.errorCount
         )
 
         val saved = repository.save(session)
