@@ -75,7 +75,8 @@ class TrackingSessionService(
             gpuDelegateActive = request.metrics.gpuDelegateActive,
             trackingRecoveryTimeMs = request.metrics.trackingRecoveryTimeMs,
             consecutiveTrackingLossMax = request.metrics.consecutiveTrackingLossMax,
-            errorCount = request.metrics.errorCount
+            errorCount = request.metrics.errorCount,
+            activeFilters = request.activeFilters?.joinToString(",")
         )
 
         val saved = repository.save(session)
@@ -140,7 +141,8 @@ class TrackingSessionService(
         avgFps = avgFps,
         avgInferenceTimeMs = avgInferenceTimeMs,
         sessionDurationMs = sessionDurationMs,
-        recordedAt = recordedAt
+        recordedAt = recordedAt,
+        activeFilters = activeFilters?.split(",")?.filter { it.isNotBlank() }
     )
 }
 

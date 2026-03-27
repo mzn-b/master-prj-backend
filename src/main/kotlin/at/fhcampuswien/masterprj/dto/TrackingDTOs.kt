@@ -114,7 +114,8 @@ data class TrackingSessionRequest(
     val sessionId: String,
     val mode: TrackingMode,
     val metrics: PerformanceMetricsDTO,
-    val recordedAt: Instant = Instant.now()
+    val recordedAt: Instant = Instant.now(),
+    val activeFilters: List<String>? = null
 )
 
 data class DeviceInfoDTO(
@@ -143,5 +144,6 @@ data class SessionSummaryDTO(
     val avgFps: Double,
     val avgInferenceTimeMs: Double,
     val sessionDurationMs: Long,
-    val recordedAt: Instant
+    val recordedAt: Instant,
+    val activeFilters: List<String>? = null
 )

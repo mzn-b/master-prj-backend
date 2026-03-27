@@ -121,5 +121,9 @@ class TrackingSession(
     // Stability metrics
     val trackingRecoveryTimeMs: Double? = null,
     val consecutiveTrackingLossMax: Int? = null,
-    val errorCount: Int? = null
+    val errorCount: Int? = null,
+
+    // Active AR filters during this session (comma-separated, e.g. "crown,glasses")
+    @Column(name = "active_filters")
+    val activeFilters: String? = null
 )
