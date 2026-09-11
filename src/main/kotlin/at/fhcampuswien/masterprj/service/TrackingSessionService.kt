@@ -18,7 +18,13 @@ class TrackingSessionService(
             sessionId = request.sessionId,
             platform = request.platform,
             mode = request.mode,
-            recordedAt = request.recordedAt,
+            // Stamped by the server, never by the client.
+            //
+            // Survey responses are matched to runs by time, and the four arms run
+            // on four devices with four independent clocks. A single server clock
+            // removes that variable entirely. `request.recordedAt` is accepted for
+            // backwards compatibility but deliberately ignored.
+            recordedAt = Instant.now(),
             // Device info
             deviceModel = request.deviceInfo.deviceModel,
             osVersion = request.deviceInfo.osVersion,

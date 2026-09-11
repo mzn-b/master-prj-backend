@@ -153,7 +153,12 @@ data class TrackingSessionRequest(
     val sessionId: String,
     val mode: TrackingMode,
     val metrics: PerformanceMetricsDTO,
-    val recordedAt: Instant = Instant.now(),
+    /**
+     * Ignored. The server stamps `recordedAt` itself so that all four arms share
+     * one clock — see TrackingSessionService.saveSession. Kept in the contract so
+     * existing clients that still send it are not rejected.
+     */
+    val recordedAt: Instant? = null,
     val activeFilters: List<String>? = null
 )
 
