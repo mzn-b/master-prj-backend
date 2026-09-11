@@ -25,8 +25,15 @@ data class FaceLandmarksDTO(
     val faces: List<FaceData>
 )
 
+data class BlendshapeCategory(
+    val categoryName: String,
+    val score: Double
+)
+
 data class FaceData(
-    val landmarks: List<NormalizedPoint>
+    val landmarks: List<NormalizedPoint>,
+    // F12 — MediaPipe FaceLandmarker blendshapes (~52 morph-target weights per face)
+    val blendshapes: List<BlendshapeCategory>? = null
 )
 
 data class HandLandmarksDTO(
@@ -35,7 +42,10 @@ data class HandLandmarksDTO(
 
 data class HandData(
     val handedness: String? = null,
-    val landmarks: List<NormalizedPoint>
+    val landmarks: List<NormalizedPoint>,
+    // F13 — top gesture label from MediaPipe GestureRecognizer
+    val gesture: String? = null,
+    val gestureScore: Double? = null
 )
 
 data class TrackingDataDTO(
@@ -80,6 +90,10 @@ data class PerformanceMetricsDTO(
     // Power metrics
     val batteryLevel: Double? = null,
     val batteryCharging: Boolean? = null,
+    // Battery consumption over the session (start - end, positive = used)
+    val batteryLevelStart: Double? = null,
+    val batteryLevelEnd: Double? = null,
+    val batteryDeltaPercent: Double? = null,
 
     // Network metrics
     val networkType: String? = null,  // wifi, cellular, ethernet, etc.
@@ -105,7 +119,32 @@ data class PerformanceMetricsDTO(
     // Stability metrics
     val trackingRecoveryTimeMs: Double? = null,  // Average time to recover after tracking loss
     val consecutiveTrackingLossMax: Int? = null,  // Longest streak of lost tracking
-    val errorCount: Int? = null  // Number of errors during session
+    val errorCount: Int? = null,  // Number of errors during session
+
+    // Memory consumption over the session (end - start, positive = grew)
+    val memoryUsageStartMB: Double? = null,
+    val memoryUsageEndMB: Double? = null,
+    val memoryDeltaMB: Double? = null,
+
+    // ---- Run conditions ----
+    // NF4: what a row means depends on how the session was configured. Without
+    // these, two rows that differ only in capture resolution or threading model
+    // are indistinguishable, and the platform comparison silently mixes them.
+
+    // Capture resolution actually delivered by the camera, not the one requested.
+    val frameWidth: Int? = null,
+    val frameHeight: Int? = null,
+
+    // Which graphics backend drew the overlay.
+    // PWA: "webgpu" | "webgl2" | "webgl". Native: "skia".
+    val renderBackend: String? = null,
+
+    // Where inference ran relative to the UI.
+    // PWA: "main" | "worker". Native: "async-runner".
+    val inferenceThreading: String? = null,
+
+    // NF3 — milliseconds from tracking start to the first frame with a detection.
+    val timeToFirstDetectionMs: Double? = null
 )
 
 data class TrackingSessionRequest(

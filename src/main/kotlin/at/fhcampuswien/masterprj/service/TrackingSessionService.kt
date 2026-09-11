@@ -53,6 +53,9 @@ class TrackingSessionService(
             // Power
             batteryLevel = request.metrics.batteryLevel,
             batteryCharging = request.metrics.batteryCharging,
+            batteryLevelStart = request.metrics.batteryLevelStart,
+            batteryLevelEnd = request.metrics.batteryLevelEnd,
+            batteryDeltaPercent = request.metrics.batteryDeltaPercent,
             // Network
             networkType = request.metrics.networkType,
             networkDownlinkMbps = request.metrics.networkDownlinkMbps,
@@ -76,7 +79,17 @@ class TrackingSessionService(
             trackingRecoveryTimeMs = request.metrics.trackingRecoveryTimeMs,
             consecutiveTrackingLossMax = request.metrics.consecutiveTrackingLossMax,
             errorCount = request.metrics.errorCount,
-            activeFilters = request.activeFilters?.joinToString(",")
+            // Memory consumption deltas
+            memoryUsageStartMB = request.metrics.memoryUsageStartMB,
+            memoryUsageEndMB = request.metrics.memoryUsageEndMB,
+            memoryDeltaMB = request.metrics.memoryDeltaMB,
+            activeFilters = request.activeFilters?.joinToString(","),
+            // Run conditions
+            frameWidth = request.metrics.frameWidth,
+            frameHeight = request.metrics.frameHeight,
+            renderBackend = request.metrics.renderBackend,
+            inferenceThreading = request.metrics.inferenceThreading,
+            timeToFirstDetectionMs = request.metrics.timeToFirstDetectionMs
         )
 
         val saved = repository.save(session)

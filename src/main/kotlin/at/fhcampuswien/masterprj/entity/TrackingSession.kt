@@ -87,6 +87,9 @@ class TrackingSession(
     // Power metrics
     val batteryLevel: Double? = null,
     val batteryCharging: Boolean? = null,
+    val batteryLevelStart: Double? = null,
+    val batteryLevelEnd: Double? = null,
+    val batteryDeltaPercent: Double? = null,
 
     // Network metrics
     val networkType: String? = null,
@@ -123,7 +126,20 @@ class TrackingSession(
     val consecutiveTrackingLossMax: Int? = null,
     val errorCount: Int? = null,
 
+    // Memory consumption over the session (end - start, positive = grew)
+    val memoryUsageStartMB: Double? = null,
+    val memoryUsageEndMB: Double? = null,
+    val memoryDeltaMB: Double? = null,
+
     // Active AR filters during this session (comma-separated, e.g. "crown,glasses")
     @Column(name = "active_filters")
-    val activeFilters: String? = null
+    val activeFilters: String? = null,
+
+    // Run conditions — see PerformanceMetricsDTO for what each one means.
+    // Nullable so ddl-auto can add them to an existing table.
+    val frameWidth: Int? = null,
+    val frameHeight: Int? = null,
+    val renderBackend: String? = null,
+    val inferenceThreading: String? = null,
+    val timeToFirstDetectionMs: Double? = null
 )
