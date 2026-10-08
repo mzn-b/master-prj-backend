@@ -76,7 +76,6 @@ class TrackingSession(
     val threadCount: Int? = null,
 
     // GPU metrics
-    val gpuUsagePercent: Double? = null,
     val gpuVendor: String? = null,
     val gpuRenderer: String? = null,
     val gpuDelegateActive: Boolean? = null,
@@ -116,7 +115,6 @@ class TrackingSession(
     @Column(nullable = false)
     val warmupComplete: Boolean,
 
-    val trackingConfidence: Double? = null,
 
     @Column(nullable = false)
     val trackingLostCount: Int,
@@ -141,5 +139,26 @@ class TrackingSession(
     val frameHeight: Int? = null,
     val renderBackend: String? = null,
     val inferenceThreading: String? = null,
-    val timeToFirstDetectionMs: Double? = null
+    val timeToFirstDetectionMs: Double? = null,
+    // Timing distribution, rendering, startup and detection quality.
+    // Added 2026-09-15; see METRICS.md for why each exists and which arms can
+    // supply it. All nullable — several are native-only by platform capability.
+    val inferenceTimeP50Ms: Double? = null,
+    val inferenceTimeP95Ms: Double? = null,
+    val inferenceTimeP99Ms: Double? = null,
+    val frameIntervalP50Ms: Double? = null,
+    val frameIntervalP95Ms: Double? = null,
+    val frameIntervalP99Ms: Double? = null,
+    val avgRenderTimeMs: Double? = null,
+    val renderTimeP95Ms: Double? = null,
+    val appStartupMs: Double? = null,
+    val avgGestureConfidence: Double? = null,
+    val avgBlendshapeActivation: Double? = null,
+    val landmarkStability: Double? = null,
+    val avgFrameSkip: Double? = null,
+    val maxFrameSkip: Int? = null,
+    val droppedFramesGovernor: Int? = null,
+    val droppedFramesBusy: Int? = null,
+    val smoothingEnabled: Boolean? = null,
+    val dynamicInferenceEnabled: Boolean? = null
 )

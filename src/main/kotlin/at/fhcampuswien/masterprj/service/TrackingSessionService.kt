@@ -51,7 +51,6 @@ class TrackingSessionService(
             cpuCores = request.metrics.cpuCores,
             threadCount = request.metrics.threadCount,
             // GPU
-            gpuUsagePercent = request.metrics.gpuUsagePercent,
             gpuVendor = request.metrics.gpuVendor,
             gpuRenderer = request.metrics.gpuRenderer,
             // Thermal
@@ -77,7 +76,6 @@ class TrackingSessionService(
             droppedFrames = request.metrics.droppedFrames,
             sessionDurationMs = request.metrics.sessionDurationMs,
             warmupComplete = request.metrics.warmupComplete,
-            trackingConfidence = request.metrics.trackingConfidence,
             trackingLostCount = request.metrics.trackingLostCount,
             // Enhanced metrics
             peakMemoryUsageMB = request.metrics.peakMemoryUsageMB,
@@ -95,7 +93,25 @@ class TrackingSessionService(
             frameHeight = request.metrics.frameHeight,
             renderBackend = request.metrics.renderBackend,
             inferenceThreading = request.metrics.inferenceThreading,
-            timeToFirstDetectionMs = request.metrics.timeToFirstDetectionMs
+            timeToFirstDetectionMs = request.metrics.timeToFirstDetectionMs,
+            inferenceTimeP50Ms = request.metrics.inferenceTimeP50Ms,
+            inferenceTimeP95Ms = request.metrics.inferenceTimeP95Ms,
+            inferenceTimeP99Ms = request.metrics.inferenceTimeP99Ms,
+            frameIntervalP50Ms = request.metrics.frameIntervalP50Ms,
+            frameIntervalP95Ms = request.metrics.frameIntervalP95Ms,
+            frameIntervalP99Ms = request.metrics.frameIntervalP99Ms,
+            avgRenderTimeMs = request.metrics.avgRenderTimeMs,
+            renderTimeP95Ms = request.metrics.renderTimeP95Ms,
+            appStartupMs = request.metrics.appStartupMs,
+            avgGestureConfidence = request.metrics.avgGestureConfidence,
+            avgBlendshapeActivation = request.metrics.avgBlendshapeActivation,
+            landmarkStability = request.metrics.landmarkStability,
+            avgFrameSkip = request.metrics.avgFrameSkip,
+            maxFrameSkip = request.metrics.maxFrameSkip,
+            droppedFramesGovernor = request.metrics.droppedFramesGovernor,
+            droppedFramesBusy = request.metrics.droppedFramesBusy,
+            smoothingEnabled = request.metrics.smoothingEnabled,
+            dynamicInferenceEnabled = request.metrics.dynamicInferenceEnabled
         )
 
         val saved = repository.save(session)
