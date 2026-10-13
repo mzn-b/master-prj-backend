@@ -163,7 +163,15 @@ data class PerformanceMetricsDTO(
     val droppedFramesGovernor: Int? = null,
     val droppedFramesBusy: Int? = null,
     val smoothingEnabled: Boolean? = null,
-    val dynamicInferenceEnabled: Boolean? = null
+    val dynamicInferenceEnabled: Boolean? = null,
+
+    // Whether the GPU delegate was *requested* for this session, which is the
+    // operator's switch position. Distinct from `gpuDelegateActive`, which
+    // reports what the engine said it built: that one has never correlated with
+    // performance (THESIS-FINDINGS 3.3, 3.19), so it cannot be used to tell a
+    // delegate-off run from a normal one. Without this column such a run is
+    // indistinguishable in the data. Added 2026-10-13.
+    val gpuDelegateEnabled: Boolean? = null
 )
 
 data class TrackingSessionRequest(

@@ -160,5 +160,9 @@ class TrackingSession(
     val droppedFramesGovernor: Int? = null,
     val droppedFramesBusy: Int? = null,
     val smoothingEnabled: Boolean? = null,
-    val dynamicInferenceEnabled: Boolean? = null
+    val dynamicInferenceEnabled: Boolean? = null,
+
+    // The GPU delegate switch position, as opposed to `gpuDelegateActive`
+    // above, which is what the engine reported building. See the DTO.
+    val gpuDelegateEnabled: Boolean? = null
 )

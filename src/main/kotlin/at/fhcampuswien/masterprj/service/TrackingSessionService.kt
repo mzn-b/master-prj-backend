@@ -111,7 +111,8 @@ class TrackingSessionService(
             droppedFramesGovernor = request.metrics.droppedFramesGovernor,
             droppedFramesBusy = request.metrics.droppedFramesBusy,
             smoothingEnabled = request.metrics.smoothingEnabled,
-            dynamicInferenceEnabled = request.metrics.dynamicInferenceEnabled
+            dynamicInferenceEnabled = request.metrics.dynamicInferenceEnabled,
+            gpuDelegateEnabled = request.metrics.gpuDelegateEnabled
         )
 
         val saved = repository.save(session)
