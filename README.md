@@ -10,12 +10,40 @@ See `../ARCHITECTURE.md` for the full system architecture and shared data model.
 
 - JDK 24
 - Docker + Docker Compose (recommended) — runs PostgreSQL + backend + Caddy
-- Or: PostgreSQL 17 running locally with database `masterprj`, user `masterprj`, password `masterprj`
+- Or: PostgreSQL 17 running locally with database `masterprj`, user `masterprj`, and the password exported as `DB_PASSWORD`
 
 ## Run with Docker (recommended)
 
 ```bash
+cp .env.example .env   # then fill in the three values (openssl rand -hex 32)
 docker compose up --build
+```
+
+## Access control (since 3 November 2026)
+
+The records are participants' pseudonymous data, so nothing reads them without a
+token (`config/StudyAccessFilter.kt`):
+
+| Request | Needs |
+|---|---|
+| `POST /api/tracking/sessions` | header `X-Study-Token: $STUDY_WRITE_TOKEN` (built into the study builds of both apps) |
+| every other `/api/tracking/*`, `/actuator/*`, API docs | header `Authorization: Bearer $STUDY_READ_TOKEN` |
+| `GET /api/tracking/health`, `GET /actuator/health` | nothing |
+
+CORS is granted only to `STUDY_ALLOWED_ORIGINS` (default: the deployed PWA).
+Postgres publishes no port; it is reachable only from the backend container.
+An unset token rejects every request it guards.
+
+### Changing the database password
+
+`POSTGRES_PASSWORD` only applies when the volume is first created. The old
+default password is in this repository's history, so on an existing volume
+change it inside Postgres too, then restart with the new `.env`:
+
+```bash
+docker exec -it masterprj-postgres psql -U masterprj -d masterprj \
+  -c "ALTER USER masterprj WITH PASSWORD '<new value from .env>';"
+docker compose up -d --build
 ```
 
 This brings up PostgreSQL 17, the backend (port 8080 inside Docker), and a Caddy reverse proxy on host ports 80/443. The Caddy site name is configured in `Caddyfile`.

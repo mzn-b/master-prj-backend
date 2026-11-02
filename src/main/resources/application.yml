@@ -5,7 +5,8 @@ spring:
   datasource:
     url: jdbc:postgresql://postgres:5432/masterprj
     username: masterprj
-    password: masterprj
+    # From the environment (.env on the server, see .env.example); never in git.
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -24,4 +25,18 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics
+        # Only the liveness check. info and metrics were public before.
+        include: health
+
+# API docs are off unless explicitly enabled for local development.
+springdoc:
+  api-docs:
+    enabled: ${SPRINGDOC_ENABLED:false}
+  swagger-ui:
+    enabled: ${SPRINGDOC_ENABLED:false}
+
+# Access tokens and CORS origins (StudyAccessFilter). Set in .env on the server.
+study:
+  write-token: ${STUDY_WRITE_TOKEN:}
+  read-token: ${STUDY_READ_TOKEN:}
+  allowed-origins: ${STUDY_ALLOWED_ORIGINS:https://master-prj-pwa.vercel.app}

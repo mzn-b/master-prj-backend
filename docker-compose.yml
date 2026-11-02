@@ -5,9 +5,9 @@ services:
     environment:
       POSTGRES_DB: masterprj
       POSTGRES_USER: masterprj
-      POSTGRES_PASSWORD: masterprj
-    ports:
-      - "5432:5432"
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+    # No published port: the database is reachable only from the backend on the
+    # compose network. "5432:5432" exposed it to the internet.
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -21,6 +21,10 @@ services:
     container_name: master-prj-backend
     expose:
       - "8080"
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+      STUDY_WRITE_TOKEN: ${STUDY_WRITE_TOKEN:?set STUDY_WRITE_TOKEN in .env}
+      STUDY_READ_TOKEN: ${STUDY_READ_TOKEN:?set STUDY_READ_TOKEN in .env}
     depends_on:
       postgres:
         condition: service_healthy
