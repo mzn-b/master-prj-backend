@@ -132,6 +132,8 @@ data class PerformanceMetricsDTO(
     // Capture resolution actually delivered by the camera, not the one requested.
     val frameWidth: Int? = null,
     val frameHeight: Int? = null,
+    // Camera frame rate the capture pipeline settled on (both apps request 30).
+    val cameraFps: Double? = null,
 
     // Which graphics backend drew the overlay.
     // PWA: "webgpu" | "webgl2" | "webgl". Native: "skia".

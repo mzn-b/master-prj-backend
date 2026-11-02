@@ -91,6 +91,7 @@ class TrackingSessionService(
             // Run conditions
             frameWidth = request.metrics.frameWidth,
             frameHeight = request.metrics.frameHeight,
+            cameraFps = request.metrics.cameraFps,
             renderBackend = request.metrics.renderBackend,
             inferenceThreading = request.metrics.inferenceThreading,
             timeToFirstDetectionMs = request.metrics.timeToFirstDetectionMs,

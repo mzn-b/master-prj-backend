@@ -137,6 +137,7 @@ class TrackingSession(
     // Nullable so ddl-auto can add them to an existing table.
     val frameWidth: Int? = null,
     val frameHeight: Int? = null,
+    val cameraFps: Double? = null,
     val renderBackend: String? = null,
     val inferenceThreading: String? = null,
     val timeToFirstDetectionMs: Double? = null,
