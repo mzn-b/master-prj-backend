@@ -3,6 +3,8 @@ package at.fhcampuswien.masterprj.entity
 import at.fhcampuswien.masterprj.dto.Platform
 import at.fhcampuswien.masterprj.dto.TrackingMode
 import jakarta.persistence.*
+import org.hibernate.annotations.JdbcTypeCode
+import org.hibernate.type.SqlTypes
 import java.time.Instant
 
 @Entity
@@ -150,6 +152,14 @@ class TrackingSession(
     val frameIntervalP50Ms: Double? = null,
     val frameIntervalP95Ms: Double? = null,
     val frameIntervalP99Ms: Double? = null,
+    // Per-frame series (since app version 1.2.0, 2026-11-04): every value the
+    // percentiles above are taken from, so that the analysis can compute them
+    // itself. A native array column (double precision[] on PostgreSQL); null
+    // for sessions of earlier builds.
+    @JdbcTypeCode(SqlTypes.ARRAY)
+    val inferenceTimeSeriesMs: DoubleArray? = null,
+    @JdbcTypeCode(SqlTypes.ARRAY)
+    val frameIntervalSeriesMs: DoubleArray? = null,
     val avgRenderTimeMs: Double? = null,
     val renderTimeP95Ms: Double? = null,
     val appStartupMs: Double? = null,

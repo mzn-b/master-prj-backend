@@ -154,6 +154,10 @@ data class PerformanceMetricsDTO(
     val frameIntervalP50Ms: Double? = null,
     val frameIntervalP95Ms: Double? = null,
     val frameIntervalP99Ms: Double? = null,
+    // Per-frame series (apps since 1.2.0): the values the percentiles are taken
+    // from, in completion order, warm-up excluded. Optional, like every metric.
+    val inferenceTimeSeriesMs: DoubleArray? = null,
+    val frameIntervalSeriesMs: DoubleArray? = null,
     val avgRenderTimeMs: Double? = null,
     val renderTimeP95Ms: Double? = null,
     val appStartupMs: Double? = null,

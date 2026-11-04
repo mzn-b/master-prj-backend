@@ -101,6 +101,8 @@ class TrackingSessionService(
             frameIntervalP50Ms = request.metrics.frameIntervalP50Ms,
             frameIntervalP95Ms = request.metrics.frameIntervalP95Ms,
             frameIntervalP99Ms = request.metrics.frameIntervalP99Ms,
+            inferenceTimeSeriesMs = request.metrics.inferenceTimeSeriesMs,
+            frameIntervalSeriesMs = request.metrics.frameIntervalSeriesMs,
             avgRenderTimeMs = request.metrics.avgRenderTimeMs,
             renderTimeP95Ms = request.metrics.renderTimeP95Ms,
             appStartupMs = request.metrics.appStartupMs,
