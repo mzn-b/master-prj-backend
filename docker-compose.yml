@@ -6,8 +6,8 @@ services:
       POSTGRES_DB: masterprj
       POSTGRES_USER: masterprj
       POSTGRES_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
-    # No published port: the database is reachable only from the backend on the
-    # compose network. "5432:5432" exposed it to the internet.
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
